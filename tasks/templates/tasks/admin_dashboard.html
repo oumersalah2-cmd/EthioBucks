@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Control Panel - Ethio Bucks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .admin-card { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .status-badge { font-size: 0.8rem; padding: 5px 10px; border-radius: 20px; }
+        .proof-img-preview { width: 100px; height: 60px; object-fit: cover; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">Owner Control Panel</h2>
+        <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-secondary">Back to Site</a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card admin-card p-3 bg-white text-center">
+                <h6 class="text-muted">Pending Proofs</h6>
+                <h3 class="text-warning fw-bold">{{ pending_tasks.count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="card admin-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">User</th>
+                            <th>Task Details</th>
+                            <th>Proof Screenshot</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tc in pending_tasks %}
+                        <tr>
+                            <td class="ps-4">
+                                <strong>{{ tc.user.username }}</strong>
+                            </td>
+                            <td>
+                                <span class="d-block">{{ tc.task.title }}</span>
+                                <small class="text-success fw-bold">+{{ tc.task.reward }} ETB</small>
+                            </td>
+                            <td>
+                                {% if tc.proof_image %}
+                                    <a href="{{ tc.proof_image.url }}" target="_blank">
+                                        <img src="{{ tc.proof_image.url }}" class="proof-img-preview border" alt="Proof">
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted small">No Image</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end pe-4">
+                                <a href="{% url 'tasks:approve_task' tc.id %}" class="btn btn-success btn-sm me-2">Approve & Pay</a>
+                                <a href="{% url 'tasks:reject_task' tc.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Reject this submission?')">Reject</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                🎉 Good job! There are no pending tasks to review.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<h2 class="fw-bold text-dark mt-5 mb-4">Pending Withdrawals (Telebirr)</h2>
+<div class="card admin-card border-danger">
+    <div class="card-body p-0">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th class="ps-4">User</th>
+                    <th>Phone Number</th>
+                    <th>Amount</th>
+                    <th class="text-end pe-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for wr in pending_withdrawals %}
+                <tr>
+                    <td class="ps-4"><strong>{{ wr.user.username }}</strong></td>
+                    <td>{{ wr.phone_number }}</td>
+                    <td class="text-primary fw-bold">{{ wr.amount }} ETB</td>
+                    <td class="text-end pe-4">
+                        <a href="{% url 'tasks:approve_withdrawal' wr.id %}" class="btn btn-primary btn-sm">Mark as Paid</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="text-center py-4">No pending withdrawals.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
