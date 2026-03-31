@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title }} - Ethio Bucks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .detail-card { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        #timer-box { font-size: 1.5rem; font-weight: bold; color: #dc3545; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-dark">Task Details</h2>
+                <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-secondary">Back to Tasks</a>
+            </div>
+
+            <!-- MESSAGES -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="card detail-card p-4">
+                <h3 class="fw-bold text-primary mb-3">{{ task.title }}</h3>
+                <h5 class="text-success fw-bold mb-4">Reward: +{{ task.reward }} ETB</h5>
+                
+                <h5 class="fw-bold">Instructions:</h5>
+                <p class="text-muted" style="white-space: pre-wrap;">{{ task.description }}</p>
+
+                <div class="alert alert-info mt-4">
+                    <strong>Step 1:</strong> Click the button below to start the task.
+                    <br>
+                    <strong>Step 2:</strong> Take a screenshot once you have finished the task.
+                    <br>
+                    <strong>Step 3:</strong> Wait for the timer below to finish to unlock the submission form.
+                </div>
+
+                <div class="text-center my-4">
+                    <a href="{{ task.link }}" target="_blank" class="btn btn-primary btn-lg px-5 shadow-sm" onclick="startTimer()">
+                        ▶ Start Task (Opens in new tab)
+                    </a>
+                </div>
+
+                <hr my-4>
+
+                <div class="text-center mb-4">
+                    <h5 class="fw-bold">Time remaining before you can submit:</h5>
+                    <div id="timer-box">30 seconds</div>
+                </div>
+
+                <form action="{% url 'tasks:submit_task_proof' task.id %}" method="POST" enctype="multipart/form-data" class="bg-light p-4 rounded shadow-sm border">
+                    {% csrf_token %}
+                    <h5 class="fw-bold mb-3">Upload Proof Screenshot</h5>
+                    <input type="file" id="proof-input" name="proof_image" class="form-control mb-3" required disabled>
+                    <button type="submit" id="submit-btn" class="btn btn-success w-100 fw-bold" disabled>
+                        Submit Proof & Claim Reward
+                    </button>
+                    <small id="form-help" class="text-danger d-block mt-2 text-center">You must complete the 30-second timer to unlock this form.</small>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let timerStarted = false;
+    let timeLeft = 30;
+    
+    function startTimer() {
+        if (timerStarted) return;
+        timerStarted = true;
+        
+        const timerBox = document.getElementById('timer-box');
+        const proofInput = document.getElementById('proof-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const formHelp = document.getElementById('form-help');
+        
+        timerBox.innerText = timeLeft + " seconds";
+        
+        const countdown = setInterval(function() {
+            timeLeft--;
+            timerBox.innerText = timeLeft + " seconds";
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerBox.innerText = "Ready to submit!";
+                timerBox.style.color = "#198754"; // Success color
+                
+                // Unlock form
+                proofInput.disabled = false;
+                submitBtn.disabled = false;
+                formHelp.innerText = "Form unlocked! You can now submit your screenshot.";
+                formHelp.classList.remove('text-danger');
+                formHelp.classList.add('text-success');
+            }
+        }, 1000);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

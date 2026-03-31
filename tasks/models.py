@@ -19,6 +19,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     last_bonus_date = models.DateTimeField(null=True, blank=True)
+    referred_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='referrals')
 
     def __str__(self):
         return f"{self.user.username}'s Wallet"
@@ -58,13 +59,19 @@ class TaskCompletion(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.task.title}"
-    
-    # Add 'referred_by' to your existing Profile model
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    # Add this line:
-    referred_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='referrals')
+
+class Transaction(models.Model):
+    TRANSACTION_TYPES = (
+        ('Bonus', 'Bonus'),
+        ('Task', 'Task'),
+        ('Referral', 'Referral'),
+        ('Withdrawal', 'Withdrawal'),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transactions')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.transaction_type} ({self.amount})"
+    
