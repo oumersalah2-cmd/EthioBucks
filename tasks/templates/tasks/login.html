@@ -1,5 +1,45 @@
 <h2>Login</h2>
 
+<style>
+    /* Style the error messages (like "Invalid username or password") */
+    .errorlist, .alert-error {
+        color: #842029;
+        background-color: #f8d7da;
+        border: 1px solid #f5c2c7;
+        padding: 10px;
+        border-radius: 8px;
+        list-style-type: none;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    /* Make the input boxes larger and rounded */
+    form p input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.2s ease-in-out;
+    }
+
+    /* Add the green glow when typing */
+    form p input:focus {
+        border-color: #198754;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.25);
+    }
+
+    /* Clean up the label text */
+    form p label {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+    }
+</style>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
