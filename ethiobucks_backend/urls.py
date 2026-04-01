@@ -8,6 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # This connects your tasks app to the main website
     path('tasks/', include('tasks.urls', namespace='tasks')),
+    # Force all default auth login requests to use the custom tasks login page.
+    path('accounts/login/', RedirectView.as_view(url='/tasks/login/', permanent=False)),
     path('accounts/', include('django.contrib.auth.urls')),
     # Redirect base URL to tasks application
     path('', RedirectView.as_view(url='/tasks/', permanent=False)),
