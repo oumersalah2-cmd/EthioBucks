@@ -1,47 +1,40 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ethio Bucks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<style>
-    /* Style the error messages (like "Invalid username or password") */
-    .errorlist, .alert-error {
-        color: #842029;
-        background-color: #f8d7da;
-        border: 1px solid #f5c2c7;
-        padding: 10px;
-        border-radius: 8px;
-        list-style-type: none;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow border-0">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4 fw-bold text-success">Ethio Bucks</h2>
+                    <h5 class="text-center mb-4">Login to your account</h5>
 
-    /* Make the input boxes larger and rounded */
-    form p input {
-        width: 100%;
-        padding: 12px;
-        margin-top: 5px;
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        box-sizing: border-box;
-        font-size: 16px;
-        transition: border-color 0.2s ease-in-out;
-    }
+                    <form method="post">
+                        {% csrf_token %}
 
-    /* Add the green glow when typing */
-    form p input:focus {
-        border-color: #198754;
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.25);
-    }
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
 
-    /* Clean up the label text */
-    form p label {
-        font-weight: 600;
-        color: #333;
-        font-size: 14px;
-    }
-</style>
+                        <button type="submit" class="btn btn-success w-100 py-2">Login</button>
+                    </form>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+                    <hr>
+                    <p class="text-center small">
+                        Don't have an account? <a href="{% url 'tasks:register' %}" class="text-decoration-none">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
