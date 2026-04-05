@@ -10,6 +10,9 @@ urlpatterns = [
     path('tasks/', include('tasks.urls', namespace='tasks')),
     # Force all default auth login requests to use the custom tasks login page.
     path('accounts/login/', RedirectView.as_view(url='/tasks/login/', permanent=False)),
+    # Force register shortcut to use the custom tasks register page.
+    path('accounts/register/', RedirectView.as_view(url='/tasks/register/', permanent=False)),
+    path('accounts/signup/', RedirectView.as_view(url='/tasks/register/', permanent=False)),
     path('accounts/', include('django.contrib.auth.urls')),
     # Redirect base URL to tasks application
     path('', RedirectView.as_view(url='/tasks/', permanent=False)),
