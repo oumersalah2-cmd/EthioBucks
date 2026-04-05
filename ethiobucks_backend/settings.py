@@ -125,3 +125,6 @@ STATIC_URL = 'static/'
 
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Match migration defaults and silence W042 warnings.
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
