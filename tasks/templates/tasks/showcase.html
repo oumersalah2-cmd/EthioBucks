@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio Bucks Showcase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0f172a;
+            --muted: #64748b;
+            --brand: #198754;
+        }
+        body {
+            margin: 0;
+            background: radial-gradient(circle at top, #eef7f2 0%, #f8fafc 50%, #edf2f7 100%);
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 28px 14px 36px;
+        }
+        .hero {
+            background: linear-gradient(145deg, #0f172a 0%, #1f2937 55%, #334155 100%);
+            color: #fff;
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 22px 40px rgba(15, 23, 42, 0.3);
+        }
+        .hero h1 {
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+        .muted {
+            color: var(--muted);
+        }
+        .badge-soft {
+            background: #dcfce7;
+            color: #14532d;
+            border: 1px solid #bbf7d0;
+            font-weight: 600;
+        }
+        .shot-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            background: white;
+            height: 100%;
+        }
+        .shot {
+            height: 220px;
+            padding: 14px;
+            background: linear-gradient(150deg, #f8fafc 0%, #ecfdf5 100%);
+            position: relative;
+        }
+        .phone {
+            width: 56%;
+            max-width: 185px;
+            height: 190px;
+            border-radius: 18px;
+            border: 6px solid #0f172a;
+            margin: 0 auto;
+            background: #f8fafc;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+            padding: 10px 8px;
+        }
+        .line {
+            height: 9px;
+            background: #dbeafe;
+            border-radius: 999px;
+            margin-bottom: 7px;
+        }
+        .line.short { width: 58%; }
+        .line.mid { width: 78%; }
+        .line.green { background: #bbf7d0; }
+        .line.yellow { background: #fde68a; }
+        .block {
+            height: 44px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 7px;
+        }
+        .section-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+        .feature-card {
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
+        }
+        .cta {
+            border: none;
+            border-radius: 18px;
+            padding: 24px;
+            background: linear-gradient(130deg, #14532d 0%, #198754 45%, #34d399 100%);
+            color: #fff;
+            box-shadow: 0 16px 28px rgba(25, 135, 84, 0.35);
+        }
+        @media (max-width: 767.98px) {
+            .hero {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+            .hero .btn {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .hero .btn:last-child {
+                margin-bottom: 0;
+            }
+            .shot {
+                height: 200px;
+            }
+            .phone {
+                height: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hero mb-4">
+        <div class="d-md-flex justify-content-between align-items-center">
+            <div>
+                <span class="badge badge-soft mb-2">Portfolio Case Study</span>
+                <h1 class="mb-2">Ethio Bucks Web Platform</h1>
+                <p class="mb-0 text-white-50">A task-and-reward web application with authentication, referrals, proof submission, wallet tracking, and withdrawal workflow.</p>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <a href="/tasks/register/" class="btn btn-light fw-bold me-md-2">Open Register</a>
+                <a href="/tasks/login/" class="btn btn-outline-light fw-bold">Open Login</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="section-title mb-0">Screenshot Gallery</h2>
+        <a href="/tasks/" class="btn btn-outline-secondary btn-sm">Open Live App</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line mid"></div>
+                        <div class="line short green"></div>
+                        <div class="block"></div>
+                        <div class="line mid"></div>
+                        <div class="line short"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Dashboard</h6>
+                    <p class="small muted mb-0">Balance, referrals, daily bonus, and task cards.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line short"></div>
+                        <div class="line mid"></div>
+                        <div class="block"></div>
+                        <div class="block"></div>
+                        <div class="line short green"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Task Detail + Timer</h6>
+                    <p class="small muted mb-0">Guided flow before proof submission unlock.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line mid green"></div>
+                        <div class="line short"></div>
+                        <div class="block"></div>
+                        <div class="line short yellow"></div>
+                        <div class="line mid"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Profile & History</h6>
+                    <p class="small muted mb-0">Transaction logs with type and amount badges.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line mid"></div>
+                        <div class="line short"></div>
+                        <div class="block"></div>
+                        <div class="block"></div>
+                        <div class="line short green"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Withdraw</h6>
+                    <p class="small muted mb-0">Simple payout request form with balance context.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line short"></div>
+                        <div class="line mid"></div>
+                        <div class="block"></div>
+                        <div class="line short"></div>
+                        <div class="line mid green"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Register UI</h6>
+                    <p class="small muted mb-0">Custom auth page with validation feedback styling.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="shot-card">
+                <div class="shot">
+                    <div class="phone">
+                        <div class="line mid"></div>
+                        <div class="line short"></div>
+                        <div class="block"></div>
+                        <div class="line mid yellow"></div>
+                        <div class="line short"></div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <h6 class="mb-1 fw-bold">Login UI</h6>
+                    <p class="small muted mb-0">Professional sign-in page optimized for phones.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title mb-3">Professional Highlights</h2>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card feature-card p-3 h-100">
+                <h6 class="fw-bold">Role-Based Workflow</h6>
+                <p class="small muted mb-0">User task flow + admin approval flow for payout and proof handling.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-3 h-100">
+                <h6 class="fw-bold">Production Deployment</h6>
+                <p class="small muted mb-0">Deployed on PythonAnywhere with migration/static pipeline.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-3 h-100">
+                <h6 class="fw-bold">Mobile-First Polish</h6>
+                <p class="small muted mb-0">Clean responsive spacing and card hierarchy for phone users.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h4 class="fw-bold mb-2">Developer: Abdusalam Oumer</h4>
+        <p class="mb-2">Telegram: <a href="https://t.me/AfewSVS" class="text-white fw-bold" target="_blank" rel="noopener noreferrer">@AfewSVS</a></p>
+        <p class="mb-0">Project links: <a href="/tasks/" class="text-white fw-bold">Dashboard</a> | <a href="/tasks/register/" class="text-white fw-bold">Register</a> | <a href="/tasks/login/" class="text-white fw-bold">Login</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -10,6 +10,10 @@ from django.contrib.admin.views.decorators import staff_member_required
 from decimal import Decimal
 from .models import Task, Profile, WithdrawalRequest, TaskCompletion, Transaction
 
+
+def showcase(request):
+    return render(request, 'tasks/showcase.html')
+
 # 1. UPDATED DASHBOARD (Now with Totals calculation)
 @login_required
 def task_list(request):
@@ -157,4 +161,4 @@ def submit_task_proof(request, task_id):
         else:
             messages.error(request, "Please select an image file.")
     return redirect('tasks:task_list')
-
+
