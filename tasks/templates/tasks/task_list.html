@@ -6,55 +6,133 @@
     <title>Ethio Bucks Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .wallet-card { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); color: white; border-radius: 15px; padding: 20px; margin-bottom: 30px; }
-        .task-card { border: none; border-radius: 10px; transition: transform 0.2s; }
-        .task-card:hover { transform: translateY(-5px); }
+        :root {
+            --bg-soft: #f3f7f5;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --brand: #1f9d55;
+        }
+        body {
+            background: radial-gradient(circle at top, #eef7f2 0%, #f8fafc 52%, #eef2f7 100%);
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .page-wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px 14px 30px;
+        }
+        .top-stat {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+        }
+        .wallet-card {
+            background: linear-gradient(145deg, #1f9d55 0%, #14713b 100%);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 16px 28px rgba(31, 157, 85, 0.25);
+        }
+        .section-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 0.2px;
+        }
+        .task-card {
+            border: none;
+            border-radius: 14px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
+        }
+        .task-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 24px rgba(15, 23, 42, 0.12);
+        }
+        .history-card {
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
+        }
+        .table thead th {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #334155;
+        }
+        .soft-note {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 767.98px) {
+            .page-wrap {
+                padding: 14px 10px 26px;
+            }
+            .hero-actions .btn {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .hero-actions .btn:last-child {
+                margin-bottom: 0;
+            }
+            .wallet-card h1 {
+                font-size: 1.85rem;
+            }
+            .section-title {
+                font-size: 1.05rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="container py-4">
+<div class="page-wrap">
 
     <!-- TOP CARDS -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card bg-success text-white shadow">
+            <div class="card top-stat bg-success text-white">
                 <div class="card-body">
-                    <h6>Current Balance</h6>
-                    <h2 class="fw-bold">{{ profile.balance }} ETB</h2>
+                    <h6 class="mb-1">Current Balance</h6>
+                    <h2 class="fw-bold mb-0">{{ profile.balance }} ETB</h2>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card bg-primary text-white shadow">
+            <div class="card top-stat bg-primary text-white">
                 <div class="card-body">
-                    <h6>Total Referrals</h6>
-                    <h2 class="fw-bold">{{ referral_count }} Friends</h2>
+                    <h6 class="mb-1">Total Referrals</h6>
+                    <h2 class="fw-bold mb-0">{{ referral_count }} Friends</h2>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card bg-light shadow">
+            <div class="card top-stat bg-light">
                 <div class="card-body">
                     <h6>Your Referral Link</h6>
                     <div class="input-group">
                         <input type="text" id="refLink" class="form-control form-control-sm"
                                value="{{ request.scheme }}://{{ request.get_host }}{% url 'tasks:register' %}?ref={{ request.user.username }}"
                                readonly>
-                        <button class="btn btn-outline-secondary btn-sm" onclick="copyLink()">Copy</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="copyLink(this)">Copy</button>
                     </div>
+                    <small class="soft-note d-block mt-2">Share this link and earn referral rewards.</small>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-dark">Ethio Bucks</h2>
-        <div>
+    <div class="d-md-flex justify-content-between align-items-center mb-4">
+        <div class="mb-3 mb-md-0">
+            <h2 class="fw-bold text-dark mb-1">Ethio Bucks</h2>
+            <p class="soft-note mb-0">Complete tasks, submit proof, and grow your balance.</p>
+        </div>
+        <div class="hero-actions">
             <a href="{% url 'tasks:claim_daily_bonus' %}" class="btn btn-warning shadow-sm me-2 fw-bold">
                 🎁 Claim Daily Bonus
             </a>
@@ -76,36 +154,40 @@
     {% endif %}
 
     <!-- WALLET -->
-    <div class="wallet-card text-center">
+    <div class="wallet-card text-center mb-4">
         <p>Your Total Balance</p>
-        <h1>{{ profile.balance }} ETB</h1>
+        <h1 class="fw-bold mb-3">{{ profile.balance }} ETB</h1>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <span class="badge bg-light text-dark px-3 py-2">Approved: {{ approved_money }} ETB</span>
+            <span class="badge bg-warning text-dark px-3 py-2">Pending: {{ pending_money }} ETB</span>
+        </div>
         <a href="{% url 'tasks:withdraw_money' %}" class="btn btn-light btn-sm mt-2">
             Withdraw Funds
         </a>
     </div>
 
     <!-- TASKS -->
-    <h4 class="mb-3 fw-bold">Available Tasks</h4>
+    <h4 class="mb-3 section-title">Available Tasks</h4>
     <div class="row g-3">
 
         {% for task in tasks %}
         <div class="col-md-6 col-lg-4">
-            <div class="card task-card h-100 shadow-sm">
+            <div class="card task-card h-100">
                 <div class="card-body d-flex flex-column">
 
-                    <h5 class="fw-bold">{{ task.title }}</h5>
+                    <h5 class="fw-bold mb-2">{{ task.title }}</h5>
                     <p class="text-muted small">{{ task.description }}</p>
 
-                    <p class="small text-muted">
+                    <p class="small text-muted mb-3">
                         Task Instructions and Proof Submission.
                     </p>
 
-                    <a href="{% url 'tasks:task_detail' task.id %}" class="btn btn-primary btn-sm mb-2 w-100 fw-bold">
+                    <a href="{% url 'tasks:task_detail' task.id %}" class="btn btn-primary btn-sm mb-2 w-100 fw-bold mt-auto">
                         View Task Details & Submit Proof
                     </a>
 
                     <div class="mt-3 text-end">
-                        <span class="badge bg-success">+{{ task.reward }} ETB</span>
+                        <span class="badge bg-success px-3 py-2">+{{ task.reward }} ETB</span>
                     </div>
 
                 </div>
@@ -119,8 +201,8 @@
 
     <!-- WITHDRAWAL HISTORY -->
     <div class="mt-5">
-        <h4 class="fw-bold">Withdrawal History</h4>
-        <div class="card shadow-sm">
+        <h4 class="section-title">Withdrawal History</h4>
+        <div class="card history-card">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -164,11 +246,15 @@
 
 <!-- JS -->
 <script>
-function copyLink() {
+function copyLink(button) {
     var copyText = document.getElementById("refLink");
 
     navigator.clipboard.writeText(copyText.value)
-        .then(() => alert("Link copied!"))
+        .then(() => {
+            const oldText = button.innerText;
+            button.innerText = "Copied!";
+            setTimeout(() => { button.innerText = oldText; }, 1200);
+        })
         .catch(() => alert("Failed to copy"));
 }
 </script>
